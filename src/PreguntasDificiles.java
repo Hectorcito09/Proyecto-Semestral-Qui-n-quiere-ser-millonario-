@@ -1,0 +1,56 @@
+public class PreguntasDificiles {
+    public static Pregunta[] getPreguntas() {
+        Pregunta[] preguntasDificiles = new Pregunta[50];
+        preguntasDificiles[0] = new Pregunta("¿Quién fue el primer ser humano en realizar un viaje espacial completo alrededor de la Tierra?", new String[]{"Neil Armstrong", "Yuri Gagarin", "Buzz Aldrin", "Alan Shepard"}, 1);
+        preguntasDificiles[1] = new Pregunta("¿Cuál es el elemento más abundante en el universo?", new String[]{"Oxígeno", "Hidrógeno", "Carbono", "Helio"}, 1);
+        preguntasDificiles[2] = new Pregunta("¿En qué país nació el filósofo Friedrich Nietzsche?", new String[]{"Austria", "Alemania", "Suiza", "Francia"}, 1);
+        preguntasDificiles[3] = new Pregunta("¿Cuál es el nombre de la partícula asociada al bosón de Higgs?", new String[]{"Quark", "Gluón", "Gravitón", "Higgs"}, 3);
+        preguntasDificiles[4] = new Pregunta("¿Quién escribió Crimen y Castigo?", new String[]{"Tolstói", "Dostoievski", "Chejov", "Nabokov"}, 1);
+        preguntasDificiles[5] = new Pregunta("¿Qué ciudad es considerada la más antigua del mundo aún habitada?", new String[]{"Jerusalén", "Atenas", "Damasco", "Roma"}, 2);
+        preguntasDificiles[6] = new Pregunta("¿Cuál es la capital de Mongolia?", new String[]{"Bakú", "Taskent", "Ulán Bator", "Almaty"}, 2);
+        preguntasDificiles[7] = new Pregunta("¿Qué civilización precolombina construyó Teotihuacán?", new String[]{"Mexica", "Zapoteca", "Tolteca",  "Desconocida"}, 3);
+        preguntasDificiles[8] = new Pregunta("¿Cuál es el nombre del tratado que puso fin a la Primera Guerra Mundial?", new String[]{"Tratado de París", "Tratado de Versalles", "Tratado de Utrecht", "Tratado de Ginebra"}, 1 );
+        preguntasDificiles[9] = new Pregunta("¿Qué científico es considerado el padre de la química moderna?", new String[]{"Boyle", "Lavoisier", "Dalton", "Rutherford"}, 1);
+        preguntasDificiles[10] = new Pregunta("¿Cuál es el país con más islas del mundo?", new String[]{"Filipinas", "Noruega", "Indonesia", "Suecia"}, 3);
+        preguntasDificiles[11] = new Pregunta("¿Qué enfermedad causó la pandemia de 1918?", new String[]{"Gripe española", "Peste bubónica", "Cólera", "Viruela"}, 0);
+        preguntasDificiles[12] = new Pregunta("¿Cuál es la única letra que no aparece en la tabla periódica?", new String[]{"J", "Q", "W", "Y"}, 1);
+        preguntasDificiles[13] = new Pregunta("¿Qué año comenzó la Revolución Industrial?", new String[]{"1750", "1800", "1700", "1600"}, 0);
+        preguntasDificiles[14] = new Pregunta("¿Qué país tiene más Patrimonios de la Humanidad por la UNESCO?", new String[]{"China", "Italia", "España", "Francia"}, 1);
+        preguntasDificiles[15] = new Pregunta("¿Quién fue el primer Nobel de Literatura en lengua castellana?", new String[]{"Gabriela Mistral", "Octavio Paz", "Juan Ramón Jiménez", "José Echegaray"}, 3);
+        preguntasDificiles[16] = new Pregunta("¿Qué país no tiene fuerzas armadas?", new String[]{"Noruega", "Islandia", "Suiza", "Suecia"}, 1);
+        preguntasDificiles[17] = new Pregunta("¿Cuál es el río más caudaloso del mundo?", new String[]{"Nilo", "Yangtsé", "Amazonas", "Congo"}, 2);
+        preguntasDificiles[18] = new Pregunta("¿Qué matemático formuló el último teorema que lleva su nombre?", new String[]{"Gauss", "Euler", "Fermat", "Euclides"}, 2);
+        preguntasDificiles[19] = new Pregunta("¿Qué antigua ciudad fue destruida por el Vesubio en el año 79?", new String[]{"Roma", "Pompeya", "Herculano", "Tarento"}, 1);
+        preguntasDificiles[20] = new Pregunta("¿Cuál es la capital de Bután?", new String[]{"Katmandú", "Thimphu", "Colombo", "Daca"}, 1);
+        preguntasDificiles[21] = new Pregunta("¿En qué año cayó Constantinopla?", new String[]{"1453", "1492", "1301", "1400"}, 0);
+        preguntasDificiles[22] = new Pregunta("¿Qué científico propuso la constante de Planck?", new String[]{"Planck", "Bohr", "Dirac", "Fermi"}, 0);
+        preguntasDificiles[23] = new Pregunta("¿Cuál es el país con más Premios Nobel de la Paz?", new String[]{"Estados Unidos", "Noruega", "Reino Unido", "Suiza"}, 0);
+        preguntasDificiles[24] = new Pregunta("¿Cuál es la segunda lengua más hablada del mundo como lengua materna?", new String[]{"Inglés", "Español", "Hindi", "Árabe"}, 1);
+        preguntasDificiles[25] = new Pregunta("¿Qué filósofo acuñó la frase \"Pienso, luego existo\"?", new String[]{"Kant", "Descartes", "Rousseau", "Platón"}, 1);
+        preguntasDificiles[26] = new Pregunta("¿Cuál es la única ciudad en el mundo que se encuentra en dos continentes?", new String[]{"El Cairo", "Moscú", "Estambul", "Viena"}, 2);
+        preguntasDificiles[27] = new Pregunta("¿Qué científico descubrió la radiactividad natural?", new String[]{"Curie", "Rutherford", "Becquerel", "Roentgen"}, 2);
+        preguntasDificiles[28] = new Pregunta("¿Qué país es conocido como el \"techo del mundo\"?", new String[]{"Nepal", "Bután", "Tíbet (China)", "Pakistán"}, 2);
+        preguntasDificiles[29] = new Pregunta("¿En qué país se encuentra el desierto de Atacama?", new String[]{"Argentina", "Bolivia", "Perú", "Chile"}, 3);
+        preguntasDificiles[30] = new Pregunta("¿Cuál es la temperatura de fusión del hielo puro en grados Kelvin?", new String[]{"273.15", "0", "373.15", "298.15"}, 0);
+        preguntasDificiles[31] = new Pregunta("¿Cuál fue la primera civilización en usar el cero como número?", new String[]{"Romanos", "Griegos", "Mayas", "Babilonios"}, 2);
+        preguntasDificiles[32] = new Pregunta("¿Qué autor escribió El proceso y La metamorfosis?", new String[]{"Kafka", "Camus", "Hesse", "Sartre"}, 0);
+        preguntasDificiles[33] = new Pregunta("¿Cuál es el país más joven del mundo (2025)?", new String[]{"Sudán del Sur", "Kosovo", "Timor Oriental", "Eritrea"}, 0);
+        preguntasDificiles[34] = new Pregunta("¿Qué nave espacial llevó al hombre por primera vez a la Luna?", new String[]{"Apolo 11", "Soyuz 1", "Challenger", "Columbia"}, 0);
+        preguntasDificiles[35] = new Pregunta("¿Quién fue el primer emperador de China?", new String[]{"Confucio", "Qin Shi Huang", "Sun Tzu", "Kublai Khan"}, 1);
+        preguntasDificiles[36] = new Pregunta("¿Qué océano es el más profundo?", new String[]{"Índico", "Pacífico", "Atlántico", "Ártico"}, 1);
+        preguntasDificiles[37] = new Pregunta("¿Qué antiguo pueblo usó el alfabeto cuneiforme?", new String[]{"Egipcios", "Sumerios", "Griegos", "Mayas"}, 1);
+        preguntasDificiles[38] = new Pregunta("¿Qué campo estudia la estructura del universo a gran escala?", new String[]{"Geología", "Biología", "Astrofísica", "Cosmología"}, 3);
+        preguntasDificiles[39] = new Pregunta("¿Qué país tiene el mayor número de hablantes de francés después de Francia?", new String[]{"Bélgica", "Canadá", "Congo (RDC)", "Suiza"}, 2);
+        preguntasDificiles[40] = new Pregunta("¿Cuál es la montaña más alta del continente africano?", new String[]{"Toubkal", "Kenia", "Kilimanjaro", "Elgon"}, 2);
+        preguntasDificiles[41] = new Pregunta("¿Cuál fue la primera civilización de Mesoamérica?", new String[]{"Olmeca", "Maya", "Mexica", "Zapoteca"}, 0);
+        preguntasDificiles[42] = new Pregunta("¿En qué año se creó la ONU?", new String[]{"1945", "1919", "1939", "1942"}, 0);
+        preguntasDificiles[43] = new Pregunta("¿Cuál es la capital de Azerbaiyán?", new String[]{"Tiflis", "Bakú", "Ereván", "Dushanbé"}, 1);
+        preguntasDificiles[44] = new Pregunta("¿Cuál es el país más densamente poblado del mundo?", new String[]{"India", "Bangladés", "Mónaco", "Corea del Sur"}, 2);
+        preguntasDificiles[45] = new Pregunta("¿Qué científico ganó el Nobel por la teoría de la electrodinámica cuántica?", new String[]{"Feynman", "Dirac", "Heisenberg", "Bohr"}, 0);
+        preguntasDificiles[46] = new Pregunta("¿Qué obra es considerada el primer trabajo historiográfico de la humanidad?", new String[]{"Anales de Tácito", "Historia de Heródoto", "Crónicas Babilónicas", "Vedas"}, 1);
+        preguntasDificiles[47] = new Pregunta("¿Cuál es el país con más especies de aves en el mundo?", new String[]{"Brasil", "Colombia", "Indonesia", "Perú"}, 1);
+        preguntasDificiles[48] = new Pregunta("¿Quién fue el primer papa latinoamericano?", new String[]{"Juan Pablo I", "Benedicto XVI", "Francisco", "Juan XXIII"}, 2);
+        preguntasDificiles[49] = new Pregunta("¿Cuál es el país más montañoso del mundo (por proporción de relieve)?", new String[]{"Nepal", "Suiza", "Bután", "Austria"}, 2);
+        return preguntasDificiles;
+    }
+}

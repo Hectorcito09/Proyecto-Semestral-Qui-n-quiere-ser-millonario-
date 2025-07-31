@@ -1,0 +1,56 @@
+public class PreguntasMedias {
+    public static Pregunta[] getPreguntas() {
+        Pregunta[] preguntasMedias = new Pregunta[50];
+        preguntasMedias[0] = new Pregunta("¿Qué científico propuso la teoría de la relatividad?", new String[]{"Newton", "Darwin", "Galileo", "Einstein"}, 3);
+        preguntasMedias[1] = new Pregunta("¿En qué país se encuentra la ciudad de Petra, una de las nuevas maravillas del mundo?", new String[]{"Egipto", "Jordania", "Turquía", "Marruecos"}, 1);
+        preguntasMedias[2] = new Pregunta("¿Cuál es el símbolo químico del oro?", new String[]{"Ag", "Au", "Fe", "Hg"}, 1);
+        preguntasMedias[3] = new Pregunta("¿Cuál es el río más largo del mundo?", new String[]{"Amazonas", "Nilo", "Yangtsé", "Misisipi"}, 1);
+        preguntasMedias[4] = new Pregunta("¿En qué año se firmó la Declaración de Independencia de EE.UU.?", new String[]{"1776", "1789", "1810", "1750"}, 0);
+        preguntasMedias[5] = new Pregunta("¿Qué tipo de animal es el ornitorrinco?", new String[]{"Ave", "Reptil", "Mamífero", "Anfibio"}, 2);
+        preguntasMedias[6] = new Pregunta("¿Qué escritor escribió Don Quijote de la Mancha?", new String[]{"Góngora", "Cervantes", "Quevedo", "Lope de Vega"}, 1);
+        preguntasMedias[7] = new Pregunta("¿Qué país tiene forma de bota?", new String[]{"Francia", "Italia", "Grecia", "Portugal"}, 1);
+        preguntasMedias[8] = new Pregunta("¿Cuál es la fórmula química del agua?", new String[]{"CO2", "H2O", "NaCl", "O2"}, 1);
+        preguntasMedias[9] = new Pregunta("¿Quién pintó \"La noche estrellada\"?", new String[]{"Picasso", "Van Gogh", "Rembrandt", "Dalí"}, 1);
+        preguntasMedias[10] = new Pregunta("¿Qué país tiene la mayor cantidad de población del mundo?", new String[]{"India", "China", "Estados Unidos", "Brasil"}, 1);
+        preguntasMedias[11] = new Pregunta("¿Qué órgano del cuerpo humano filtra la sangre?", new String[]{"Pulmón", "Corazón", "Hígado", "Riñón"}, 3);
+        preguntasMedias[12] = new Pregunta("¿Qué continente tiene más países?", new String[]{"Asia", "África", "Europa", "América"}, 1);
+        preguntasMedias[13] = new Pregunta("¿En qué país se inventó la pólvora?", new String[]{"China", "India", "Egipto", "Alemania"}, 0);
+        preguntasMedias[14] = new Pregunta("¿Qué elemento tiene como símbolo \"Fe\"?", new String[]{"Flúor", "Fósforo", "Hierro", "Francio"}, 2);
+        preguntasMedias[15] = new Pregunta("¿Qué emperador romano fue asesinado en los Idus de marzo?", new String[]{"Nerón", "César", "Trajano", "Calígula"}, 1);
+        preguntasMedias[16] = new Pregunta("¿Cuál es el nombre del satélite de la Tierra?", new String[]{"Fobos", "Luna", "Titán", "Europa"}, 1);
+        preguntasMedias[17] = new Pregunta("¿Cuántos huesos tiene el cuerpo humano adulto?", new String[]{"200", "206", "210", "198"}, 1);
+        preguntasMedias[18] = new Pregunta("¿Cuál fue el primer país en llegar a la Luna?", new String[]{"EE.UU.", "Rusia", "China", "Alemania"}, 0);
+        preguntasMedias[19] = new Pregunta("¿En qué siglo ocurrió la Revolución Francesa?", new String[]{"XVI", "XVII", "XVIII", "XIX"}, 2);
+        preguntasMedias[20] = new Pregunta("¿Qué escritor es conocido por 1984 y Rebelión en la granja?", new String[]{"Huxley", "Orwell", "Bradbury", "Verne"}, 1);
+        preguntasMedias[21] = new Pregunta("¿Cuál es el país más grande del mundo en superficie?", new String[]{"China", "EE.UU.", "Canadá", "Rusia"}, 3);
+        preguntasMedias[22] = new Pregunta("¿Quién compuso la Novena Sinfonía?", new String[]{"Mozart", "Bach", "Beethoven", "Chopin"}, 2);
+        preguntasMedias[23] = new Pregunta("¿Cuál es la capital de Canadá?", new String[]{"Toronto", "Vancouver", "Ottawa", "Montreal"}, 2);
+        preguntasMedias[24] = new Pregunta("¿Qué filósofo escribió La República?", new String[]{"Platón", "Aristóteles", "Sócrates", "Descartes"}, 0);
+        preguntasMedias[25] = new Pregunta("¿Cuál es el principal ingrediente del guacamole?", new String[]{"Tomate", "Chile", "Aguacate", "Limón"}, 2);
+        preguntasMedias[26] = new Pregunta("¿Cuál es el idioma oficial de Brasil?", new String[]{"Brasileño", "Italiano", "Ruso", "Portugués"}, 3);
+        preguntasMedias[27] = new Pregunta("¿Cuál es la moneda oficial de Japón?", new String[]{"Won", "Yen", "Yuan", "Dólar"}, 1);
+        preguntasMedias[28] = new Pregunta("¿Qué país se independizó de España en 1810?", new String[]{"México", "Colombia", "Perú", "Chile"}, 0);
+        preguntasMedias[29] = new Pregunta("¿Qué sustancia da el color verde a las plantas?", new String[]{"Clorofila", "Glucosa", "Pigmentos", "Fotones"}, 0);
+        preguntasMedias[30] = new Pregunta("¿Cuál es el país más pequeño del mundo?", new String[]{"Mónaco", "San Marino", "Malta", "Vaticano"}, 3);
+        preguntasMedias[31] = new Pregunta("¿Qué guerra se luchó entre 1914 y 1918?", new String[]{"Segunda Guerra Mundial", "Guerra Civil Española", "Guerra de Crimea", "Primera Guerra Mundial"}, 3);
+        preguntasMedias[32] = new Pregunta("¿Quién fue el primer presidente de Estados Unidos?", new String[]{"Lincoln", "Washington", "Jefferson", "Adams"}, 1);
+        preguntasMedias[33] = new Pregunta("¿Cuál es el idioma original de El Principito?", new String[]{"Inglés", "Español", "Francés", "Alemán"}, 2);
+        preguntasMedias[34] = new Pregunta("¿Qué planeta tiene un gran punto rojo como tormenta?", new String[]{"Júpiter", "Saturno", "Urano", "Neptuno"}, 0);
+        preguntasMedias[35] = new Pregunta("¿Qué país ganó el Mundial de Fútbol 2010?", new String[]{"Alemania", "Brasil", "España", "Francia"}, 2);
+        preguntasMedias[36] = new Pregunta("¿Cuál es el nombre del proceso en que las plantas hacen su alimento?", new String[]{"Evaporación", "Germinación", "Fotosíntesis", "Reproducción"}, 2);
+        preguntasMedias[37] = new Pregunta("¿Qué científico descubrió la penicilina?", new String[]{"Pasteur", "Fleming", "Newton", "Tesla"}, 1);
+        preguntasMedias[38] = new Pregunta("¿Cuál es el gentilicio de Egipto?", new String[]{"Egiptiense", "Egiptano", "Egipcio", "Egiptólogo"}, 2);
+        preguntasMedias[39] = new Pregunta("¿Qué país tiene más volcanes activos?", new String[]{"EE.UU.", "Indonesia", "Japón", "Chiriquí"}, 0);
+        preguntasMedias[40] = new Pregunta("¿Quién fue el autor de Hamlet?", new String[]{"Chaucer", "Shakespeare", "Dickens", "Poe"}, 1);
+        preguntasMedias[41] = new Pregunta("¿Cuál es la capital de Australia?", new String[]{"Sídney", "Melbourne", "Canberra", "Brisbane"}, 2);
+        preguntasMedias[42] = new Pregunta("¿Qué científico propuso la evolución por selección natural?", new String[]{"Newton", "Darwin", "Galileo", "Mendel"}, 1);
+        preguntasMedias[43] = new Pregunta("¿En qué país se encuentra el desierto del Sahara?", new String[]{"Arabia Saudita", "Marruecos", "Egipto", "Está en varios países"}, 3);
+        preguntasMedias[44] = new Pregunta("¿Qué invento revolucionó la imprenta en el siglo XV?", new String[]{"Papel", "Tinta", "Tipografía móvil", "Computadora"}, 2);
+        preguntasMedias[45] = new Pregunta("¿Cuántos colores tiene el arcoíris tradicional?", new String[]{"5", "6", "7", "8"}, 2);
+        preguntasMedias[46] = new Pregunta("¿Cuál es la capital de Turquía?", new String[]{"Estambul", "Ankara", "Izmir", "Bursa"}, 1);
+        preguntasMedias[47] = new Pregunta("¿Qué instrumento mide los terremotos?", new String[]{"Altímetro", "Anemómetro", "Sismógrafo", "Barómetro"}, 2);
+        preguntasMedias[48] = new Pregunta("¿Cuál es la capital de Noruega?", new String[]{"Estocolmo", "Helsinki", "Copenhague", "Oslo"}, 3);
+        preguntasMedias[49] = new Pregunta("¿Qué civilización construyó Machu Picchu?", new String[]{"Azteca", "Maya", "Inca", "Olmeca"}, 2);
+        return preguntasMedias;
+    }
+}
