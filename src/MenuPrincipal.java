@@ -154,7 +154,7 @@ public class MenuPrincipal extends JFrame {
         while (!nombreValido) {
             // Solicitar nombre del jugador
             nombre = JOptionPane.showInputDialog(this,
-                    "Ingresa tu nombre:",
+                    "Ingresa como quieres que te llamen:",
                     "Nombre del jugador",
                     JOptionPane.QUESTION_MESSAGE);
 
