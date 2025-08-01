@@ -40,6 +40,14 @@ public class VentanaJuego extends JFrame {
             this.preguntas = Arrays.copyOf(this.preguntas, 5);
         }
 
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                if (enPregunta) {
+                    mostrarPregunta(preguntas[indicePreguntaActual]);
+                }
+            }
+        });
         setTitle("¿Quién quiere ser millonario? - " + dificultad);
         setExtendedState(JFrame.MAXIMIZED_BOTH);//Pantalla completa
         setUndecorated(true);// Sin bordes ni botones de ventana
@@ -239,25 +247,32 @@ public class VentanaJuego extends JFrame {
     }
     //Metodo para configurar el Hover
     private void configurarHover(JLabel comodin, String imagenHover) {
+        // Guardar el icono original y sus dimensiones
+        ImageIcon iconoOriginal = (ImageIcon)comodin.getIcon();
+        final int ancho = iconoOriginal.getIconWidth();
+        final int alto = iconoOriginal.getIconHeight();
+
+        // Cargar la imagen de hover y escalarla al mismo tamaño que la original
+        ImageIcon hoverIcon = new ImageIcon(new ImageIcon(imagenHover).getImage()
+                .getScaledInstance(ancho, alto, Image.SCALE_SMOOTH));
+
         comodin.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent e) {//Se activa cuando el mouse entra al area del comodin
-                if (!comodin.getIcon().toString().contains("usado")) { // No cambia si ya está usado el comodin
-                    comodin.setIcon(new ImageIcon(imagenHover));//Si no es asi, cambia la version de hover
+            public void mouseEntered(MouseEvent e) {
+                if (!comodin.getIcon().toString().contains("usado")) {
+                    comodin.setIcon(hoverIcon);
                 }
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {//Se activa cuando el mouse sale del area del comodin
+            public void mouseExited(MouseEvent e) {
                 if (!comodin.getIcon().toString().contains("usado")) {
-                    //Si el comodin no ha sido usado, vuelve a la imagen original
-                    if (comodin == comodin5050) comodin.setIcon(new ImageIcon("Recursos/comodin_5050.png"));
-                    else if (comodin == comodinLlamada) comodin.setIcon(new ImageIcon("Recursos/comodin_llamada.png"));
-                    else if (comodin == comodinPublico) comodin.setIcon(new ImageIcon("Recursos/comodin_publico.png"));
+                    comodin.setIcon(iconoOriginal);
                 }
             }
         });
     }
+
     //Metodo para usar el comodin 50/50
     private void usarComodin5050() {
         if (comodines.isUsado5050()) return;//Verifica si fue usado
@@ -362,67 +377,94 @@ public class VentanaJuego extends JFrame {
     }
     //Metodo para mostrar las preguntas
     private void mostrarPregunta(Pregunta pregunta) {
-        dialogoLabel.setBounds(250, 150, 1400, 120);
-        dialogoLabel.setText(pregunta.enunciado);//Muestra el texto de la pregunta en la posicion estipulada
+        // Obtener dimensiones actuales de la pantalla
+        Dimension screenSize = getSize();
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();//Obtiene el tamaño de la pantalla
-        int buttonWidth = 650;
-        int buttonHeight = 100;
-        int marginBottom = 50;
-        int startY = screenSize.height - (2 * buttonHeight) - marginBottom;
+        // Configurar área de pregunta (20% desde arriba, 80% de ancho)
+        int preguntaWidth = (int)(screenSize.width * 0.8);
+        int preguntaHeight = (int)(screenSize.height * 0.15);
+        dialogoLabel.setBounds(
+                (screenSize.width - preguntaWidth) / 2,
+                (int)(screenSize.height * 0.2),
+                preguntaWidth,
+                preguntaHeight
+        );
+        dialogoLabel.setText(pregunta.enunciado);
 
-        int[][] posiciones = {//Matriz que indica las coordenadas de los botones
-                {250, startY},
-                {250 + buttonWidth + 20, startY},
-                {250, startY + buttonHeight + 20},
-                {250 + buttonWidth + 20, startY + buttonHeight + 20}
+        // Configurar botones de opciones (2 columnas)
+        int buttonWidth = (int)(screenSize.width * 0.35);
+        int buttonHeight = (int)(screenSize.height * 0.1);
+        int margin = (int)(screenSize.width * 0.05);
+        int startY = screenSize.height - (int)(screenSize.height * 0.3);
+
+        // Posiciones relativas para los botones
+        int[][] posiciones = {
+                {margin, startY},
+                {screenSize.width - margin - buttonWidth, startY},
+                {margin, startY + buttonHeight + margin/2},
+                {screenSize.width - margin - buttonWidth, startY + buttonHeight + margin/2}
         };
 
-        //Dependiendo del genero, se eligen diferentes colores de fondo y borde
+        // Estilo y color basado en género
         Color colorBase = genero.equals("hombre") ? new Color(0, 80, 120) : new Color(120, 0, 80);
         Color colorBorde = genero.equals("hombre") ? Color.CYAN : Color.PINK;
 
-        for (int i = 0; i < botonesOpciones.length; i++) {//Configurar cada boton de opcion
+        // Tamaño de fuente adaptable
+        int fontSize = Math.max(16, screenSize.width / 80);
+
+        for (int i = 0; i < botonesOpciones.length; i++) {
+            // Limpiar listeners anteriores
             for (ActionListener al : botonesOpciones[i].getActionListeners()) {
-                botonesOpciones[i].removeActionListener(al);//elimina los actionListener antiguos
+                botonesOpciones[i].removeActionListener(al);
             }
 
-            botonesOpciones[i].setText((char)('A' + i) + ": " + pregunta.opciones[i]);//Asignar el texto del boton
-            botonesOpciones[i].setBounds(posiciones[i][0], posiciones[i][1], buttonWidth, buttonHeight);//posicion del boton
-            botonesOpciones[i].setBackground(colorBase);//Color del fondo
-            botonesOpciones[i].setForeground(Color.WHITE);//Color del texto
-            botonesOpciones[i].setFont(new Font("Arial", Font.BOLD, 18));//Fuente y tamaño de la letra
-            botonesOpciones[i].setBorder(BorderFactory.createCompoundBorder(//crea un borde
+            // Configurar botón
+            botonesOpciones[i].setText((char)('A' + i) + ": " + pregunta.opciones[i]);
+            botonesOpciones[i].setBounds(posiciones[i][0], posiciones[i][1], buttonWidth, buttonHeight);
+            botonesOpciones[i].setBackground(colorBase);
+            botonesOpciones[i].setForeground(Color.WHITE);
+            botonesOpciones[i].setFont(new Font("Arial", Font.BOLD, fontSize));
+            botonesOpciones[i].setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(colorBorde, 3),
                     BorderFactory.createEmptyBorder(5, 20, 5, 20)
             ));
-            botonesOpciones[i].setOpaque(true);//Muestra el color del fondo
-            botonesOpciones[i].setContentAreaFilled(true);//Rellena el boton con el color de fondo
+            botonesOpciones[i].setOpaque(true);
+            botonesOpciones[i].setContentAreaFilled(true);
 
-            final int opcion = i + 1;//Se guarda el numero seleccionado en opcion
-            botonesOpciones[i].addActionListener(e -> verificarRespuesta(pregunta, opcion));//LLama el metodo verificarRespuesta cuando el usuario hace click en el boton
-            botonesOpciones[i].setVisible(true);//Asegura que el boton sea visible
-        }
-
-        if (!comodines.isUsado5050()) {//Si el comodin no se ha usado, se le asigna su imagen original con su escala
-            comodin5050.setIcon(escalarIcono(new ImageIcon("Recursos/comodin_5050.png"), 100, 100));
-        }
-        if (!comodines.isUsadoLlamada()) {//Si el comodin no se ha usado, se le asigna su imagen original con su escala
-            comodinLlamada.setIcon(escalarIcono(new ImageIcon("Recursos/comodin_llamada.png"), 100, 100));
-        }
-        if (!comodines.isUsadoPublico()) {//Si el comodin no se ha usado, se le asigna su imagen original con su escala
-            comodinPublico.setIcon(escalarIcono(new ImageIcon("Recursos/comodin_publico.png"), 100, 100));
+            // Añadir listener
+            final int opcion = i + 1;
+            botonesOpciones[i].addActionListener(e -> verificarRespuesta(pregunta, opcion));
+            botonesOpciones[i].setVisible(true);
         }
 
-        //Mostrar comodines
+        // Actualizar comodines si no se han usado
+        int comodinSize = (int)(screenSize.width * 0.05);
+        if (!comodines.isUsado5050()) {
+            comodin5050.setIcon(escalarIcono(new ImageIcon("Recursos/comodin_5050.png"), comodinSize, comodinSize));
+        }
+        if (!comodines.isUsadoLlamada()) {
+            comodinLlamada.setIcon(escalarIcono(new ImageIcon("Recursos/comodin_llamada.png"), comodinSize, comodinSize));
+        }
+        if (!comodines.isUsadoPublico()) {
+            comodinPublico.setIcon(escalarIcono(new ImageIcon("Recursos/comodin_publico.png"), comodinSize, comodinSize));
+        }
+
+        // Posicionar comodines
+        int comodinY = (int)(screenSize.height * 0.03);
+        int comodinX = (int)(screenSize.width * 0.03);
+        comodin5050.setBounds(comodinX, comodinY, comodinSize, comodinSize);
+        comodinLlamada.setBounds(comodinX + comodinSize + margin/2, comodinY, comodinSize, comodinSize);
+        comodinPublico.setBounds(comodinX + 2*(comodinSize + margin/2), comodinY, comodinSize, comodinSize);
+
+        // Mostrar comodines
         comodin5050.setVisible(true);
         comodinLlamada.setVisible(true);
         comodinPublico.setVisible(true);
 
-        //actualiza la interfaz grafica
         revalidate();
         repaint();
     }
+
     //Metodo para verificar las respuestas
     private void verificarRespuesta(Pregunta pregunta, int opcionSeleccionada) {
         boolean correcta = pregunta.esCorrecta(opcionSeleccionada);//Este metodo se ejecuta cuando el jugar elige una respuesta y el resultado se guarda en correcta
@@ -441,109 +483,144 @@ public class VentanaJuego extends JFrame {
     }
     //Metodo para verificar las respuestas
     private void avanzarASiguientePregunta() {
+        // Ocultar elementos
         for (JButton btn : botonesOpciones) {
-            btn.setVisible(false);//Oculta los botones de opciones para limpiarlos antes de la siguiente pregunta
+            btn.setVisible(false);
         }
-
-        //Oculta los botones de comodines
         comodin5050.setVisible(false);
         comodinLlamada.setVisible(false);
         comodinPublico.setVisible(false);
 
         if (indicePreguntaActual == preguntas.length - 1) {
-            mostrarMensajeFinal();//Si llego al final de las preguntas, se muestra el mensaje final
+            mostrarMensajeFinal();
             return;
         }
 
-        //Muestra un mensaje de transicion, dependiendo del punto de la partida
-        dialogoLabel.setBounds(250, 500, 1400, 120);
+        // Configurar mensaje de transición con tamaño relativo
+        Dimension screenSize = getSize();
+        int dialogWidth = (int)(screenSize.width * 0.6);
+        int dialogHeight = (int)(screenSize.height * 0.15);
+
+        dialogoLabel.setBounds(
+                (screenSize.width - dialogWidth) / 2,
+                (int)(screenSize.height * 0.4),
+                dialogWidth,
+                dialogHeight
+        );
+
         dialogoLabel.setText(indicePreguntaActual + 1 == preguntas.length - 1 ?
                 "Última pregunta:" : "Siguiente pregunta:");
         dialogoLabel.setVisible(true);
 
-        //Se crea un timer de 2 segundos entre preguntas para dar una pausa visual
+        // Temporizador para la siguiente pregunta
         new Timer(2000, e -> {
-            ((Timer)e.getSource()).stop();//Se detine luego de los 2 segundos
-            indicePreguntaActual++;//Aumenta el indice de preguntaActual
-            if (indicePreguntaActual < preguntas.length) {//Si aun quedan preguntas, se llama al metodo mostrarPreguntas()
+            ((Timer)e.getSource()).stop();
+            indicePreguntaActual++;
+            if (indicePreguntaActual < preguntas.length) {
                 enPregunta = true;
                 mostrarPregunta(preguntas[indicePreguntaActual]);
             }
-        }).start();//inicia el temporizador
+        }).start();
     }
+
     //Metodo para avanzar a la siguiente pregunta
     private void mostrarMensajeFinal() {
-        pausarSonidoFondo();//Pausa el sonido de fondo
+        pausarSonidoFondo();
         if (sonidoCorrecto != null) {
-            sonidoCorrecto.setFramePosition(0);//Reinicia el audio desde el inicio
-            sonidoCorrecto.start();//Reproduce el sonido de respuesta correcta
+            sonidoCorrecto.setFramePosition(0);
+            sonidoCorrecto.start();
         }
 
-        dialogoLabel.setVisible(false);//Oculta el texto donde aparece la pregunta
+        // Ocultar elementos anteriores
+        dialogoLabel.setVisible(false);
         for (JButton btn : botonesOpciones) {
-            btn.setVisible(false);//Oculta todos los botones de opciones
+            btn.setVisible(false);
         }
-        //Oculta los comodines
         comodin5050.setVisible(false);
         comodinLlamada.setVisible(false);
         comodinPublico.setVisible(false);
 
-        JPanel panelFinal = new JPanel();//Crea un nuevo panel final
-        panelFinal.setLayout(new BorderLayout(0, 20));//Distribuye los elementos
-        panelFinal.setOpaque(false);//Fondo no visible
-        panelFinal.setBounds(350, 200, 1200, 400);//La ubicacion y tamaño
+        // Configurar panel final con dimensiones relativas
+        Dimension screenSize = getSize();
+        JPanel panelFinal = new JPanel(new BorderLayout());
+        panelFinal.setOpaque(false);
 
-        JPanel panelMensaje = new JPanel();//Crea el panel que contiene el mensaje
+        // Tamaños relativos
+        int panelWidth = (int)(screenSize.width * 0.7);
+        int panelHeight = (int)(screenSize.height * 0.6);
+        panelFinal.setBounds(
+                (screenSize.width - panelWidth) / 2,
+                (screenSize.height - panelHeight) / 2,
+                panelWidth,
+                panelHeight
+        );
+
+        // Panel de mensaje con bordes proporcionales
+        JPanel panelMensaje = new JPanel();
         panelMensaje.setLayout(new BoxLayout(panelMensaje, BoxLayout.Y_AXIS));
-        panelMensaje.setOpaque(true);//Fondo visible
-        panelMensaje.setBackground(new Color(20, 20, 80));//El color (Azul)
+        panelMensaje.setOpaque(true);
+        panelMensaje.setBackground(new Color(20, 20, 80));
         panelMensaje.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(genero.equals("hombre") ? Color.CYAN : Color.PINK, 4),
-                BorderFactory.createEmptyBorder(40, 60, 40, 60)//Borde de diferente color dependiendo del genero
+                BorderFactory.createEmptyBorder(
+                        (int)(screenSize.height * 0.04),
+                        (int)(screenSize.width * 0.05),
+                        (int)(screenSize.height * 0.04),
+                        (int)(screenSize.width * 0.05))
         ));
 
-        //Mensajes de felicitacion y premio
+        // Configurar tamaños de fuente relativos
+        int bigFontSize = Math.max(24, screenSize.width / 40);
+        int mediumFontSize = Math.max(18, screenSize.width / 60);
+
         JLabel lblFelicitaciones = new JLabel("¡FELICIDADES " + nombreJugador.toUpperCase() + "!");
-        lblFelicitaciones.setAlignmentX(Component.CENTER_ALIGNMENT);//Alineacion centrada
-        lblFelicitaciones.setFont(new Font("Monospaced", Font.BOLD, 42));//Fuente y tamaño de la letra
+        lblFelicitaciones.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblFelicitaciones.setFont(new Font("Monospaced", Font.BOLD, bigFontSize));
         lblFelicitaciones.setForeground(Color.WHITE);
 
         JLabel lblPremio = new JLabel("¡HAS GANADO EL MILLÓN DE DÓLARES!");
-        lblPremio.setAlignmentX(Component.CENTER_ALIGNMENT);//Alineacion centrada
-        lblPremio.setFont(new Font("Monospaced", Font.BOLD, 36));//Fuente y tamaño de la letra
+        lblPremio.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblPremio.setFont(new Font("Monospaced", Font.BOLD, mediumFontSize));
         lblPremio.setForeground(Color.YELLOW);
 
-        panelMensaje.add(Box.createVerticalGlue());//Se centra verticalmente
+        panelMensaje.add(Box.createVerticalGlue());
         panelMensaje.add(lblFelicitaciones);
-        panelMensaje.add(Box.createVerticalStrut(20));//Crea un espacio entre los mensajes
+        panelMensaje.add(Box.createVerticalStrut((int)(screenSize.height * 0.02)));
         panelMensaje.add(lblPremio);
         panelMensaje.add(Box.createVerticalGlue());
 
-        //crear boton para salir al menu
+        // Botón de salida con tamaño relativo
         JButton btnSalir = new JButton("VOLVER AL MENÚ PRINCIPAL");
-        btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);//Se centra
-        btnSalir.setMaximumSize(new Dimension(300, 60));//Tamaño maximo
-        btnSalir.setFont(new Font("Arial", Font.BOLD, 20));//Fuente y tamaño de letra
-        btnSalir.setBackground(new Color(0, 150, 0));//fondo
+        btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSalir.setMaximumSize(new Dimension(
+                (int)(screenSize.width * 0.25),
+                (int)(screenSize.height * 0.08))
+        );
+        btnSalir.setFont(new Font("Arial", Font.BOLD, mediumFontSize));
+        btnSalir.setBackground(new Color(0, 150, 0));
         btnSalir.setForeground(Color.WHITE);
         btnSalir.setFocusPainted(false);
         btnSalir.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.WHITE, 2),//Borde blanco de 2 pixeles
-                BorderFactory.createEmptyBorder(10, 25, 10, 25)//relleno de 10 arriba/abajo y 25 a los lados
+                BorderFactory.createLineBorder(Color.WHITE, 2),
+                BorderFactory.createEmptyBorder(
+                        (int)(screenSize.height * 0.015),
+                        (int)(screenSize.width * 0.02),
+                        (int)(screenSize.height * 0.015),
+                        (int)(screenSize.width * 0.02))
         ));
         btnSalir.addActionListener(e -> {
             layeredPane.remove(panelFinal);
-            terminarJuego();//Al hacer click, se elimina el panel final y se llama al metodo terminarJuego
+            terminarJuego();
         });
 
-        panelFinal.add(panelMensaje, BorderLayout.CENTER);//Los mensajes se colocan en el centro del panel
+        panelFinal.add(panelMensaje, BorderLayout.CENTER);
         panelFinal.add(btnSalir, BorderLayout.SOUTH);
-        layeredPane.add(panelFinal, JLayeredPane.PALETTE_LAYER);//Se añade el panelFinal a una capa superior
+        layeredPane.add(panelFinal, JLayeredPane.PALETTE_LAYER);
 
-        //Actuzalicar la interfaz grafica
-        revalidate();//recalcula su diseño
-        repaint();//Actualiza la ventana
+        revalidate();
+        repaint();
     }
+
     //Metodo para terminar el juego
     private void terminarJuego() {
         if (sonidoFondo != null) {//si el sonido sigue

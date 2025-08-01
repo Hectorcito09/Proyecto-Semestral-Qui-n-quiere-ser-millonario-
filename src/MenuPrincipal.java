@@ -192,48 +192,69 @@ public class MenuPrincipal extends JFrame {
     }
     //Metodo que crea un boton personalizado
     private JButton crearBoton(String texto) {
-        String ruta = "Recursos/" + texto.toLowerCase() + ".png";//convierte el texto a mayusculas
-        ImageIcon iconoNormal = new ImageIcon(ruta);
-
-        // Crea un botón con el icono normal
-        JButton boton = new JButton(iconoNormal);
-        boton.setBorderPainted(false);//No muestra bordes
-        boton.setContentAreaFilled(false);//No muestra fondo
-        boton.setFocusPainted(false);
-        boton.setOpaque(false);//Es transparente
-        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));//Cambia el mouse por una mano
-        boton.setPreferredSize(new Dimension(iconoNormal.getIconWidth(), iconoNormal.getIconHeight()));//Ajusta su tamaño al icono de la imagen
-
-        // Opción 1: Cambiar el icono cuando el mouse está encima
+        String ruta = "Recursos/" + texto.toLowerCase() + ".png";
         String rutaHover = "Recursos/" + texto.toLowerCase() + "_cambio.png";
-        try {
-            ImageIcon iconoHover = new ImageIcon(rutaHover);
+
+        // Cargar las imágenes originales
+        ImageIcon iconoNormal = new ImageIcon(ruta);
+        ImageIcon iconoHover = new ImageIcon(rutaHover);
+
+        // Crear botón sin icono inicial
+        JButton boton = new JButton();
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setFocusPainted(false);
+        boton.setOpaque(false);
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Método para actualizar el tamaño de los iconos
+        Runnable actualizarIconos = () -> {
+            // Obtener tamaño de la pantalla
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int baseWidth = 1920; // Tamaño base de diseño (puedes ajustarlo)
+
+            // Calcular factor de escala basado en el ancho de la pantalla
+            double scaleFactor = screenSize.getWidth() / baseWidth;
+
+            // Escalar imágenes
+            Image imgNormal = iconoNormal.getImage();
+            Image imgHover = iconoHover.getImage();
+
+            int newWidth = (int)(imgNormal.getWidth(null) * scaleFactor);
+            int newHeight = (int)(imgNormal.getHeight(null) * scaleFactor);
+
+            Image scaledNormal = imgNormal.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            Image scaledHover = imgHover.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+            // Establecer iconos escalados
+            boton.setIcon(new ImageIcon(scaledNormal));
+            boton.setPreferredSize(new Dimension(newWidth, newHeight));
+
+            // Configurar hover
             boton.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseEntered(MouseEvent e) {//Al pasar el mouse cambia el icono y se reproduce un sonido
-                    boton.setIcon(iconoHover);
+                public void mouseEntered(MouseEvent e) {
+                    boton.setIcon(new ImageIcon(scaledHover));
                     reproducirSonido("navegacion");
                 }
 
                 @Override
-                public void mouseExited(MouseEvent e) {//Al salir del boton, vuelve a su imagen original
-                    boton.setIcon(iconoNormal);
+                public void mouseExited(MouseEvent e) {
+                    boton.setIcon(new ImageIcon(scaledNormal));
                 }
             });
-        } catch (Exception e) {
-            // Opción 2: Efecto de escala si no hay imagen hover
-            boton.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {//si no existe la imagen hover, se aumenta la imagen un 10%
-                    boton.setIcon(new ImageIcon(escalarImagen(iconoNormal.getImage(), 1.1f)));
-                }
+        };
 
-                @Override
-                public void mouseExited(MouseEvent e) {//Al salir, vuelve a su tamaño
-                    boton.setIcon(iconoNormal);
-                }
-            });
-        }
+        // Actualizar iconos inicialmente
+        actualizarIconos.run();
+
+        // Escuchar cambios de tamaño de la ventana
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                actualizarIconos.run();
+            }
+        });
 
         return boton;
     }
